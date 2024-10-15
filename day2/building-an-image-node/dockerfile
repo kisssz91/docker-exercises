@@ -1,13 +1,15 @@
-FROM node:22-alpine as demo-server
+FROM node:22-alpine AS demo-server
 
 WORKDIR /node-server
 
-COPY package*.json .
+# install dependencies
+COPY package*.json /node-server/
+# COPY package.json /node-server/
+RUN npm i
 
-RUN npm install 
+COPY server.js /node-server/
 
-COPY server.js .
+EXPOSE 4000
 
-ENV PORT=4000
-
+# run service
 ENTRYPOINT [ "node", "server.js" ]
