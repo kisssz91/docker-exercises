@@ -1,0 +1,13 @@
+FROM node:22-alpine as demo-server
+
+WORKDIR /node-server
+
+COPY package*.json .
+
+RUN npm install 
+
+COPY server.js .
+
+ENV PORT=4000
+
+ENTRYPOINT [ "node", "server.js" ]
